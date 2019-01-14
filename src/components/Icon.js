@@ -54,11 +54,15 @@ export default function Icon({ icon, name, brand, light, solid, ...props }) {
   } else if (light) {
     //prefix = 'fal';
   } else if (solid) {
-    //prefix = 'fas';
+    prefix = 'fas';
   }
 
   if (name === 'spinner-third') {
     name = 'spinner';
+  }
+
+  if (name === 'info-circle') {
+    prefix = 'fas';
   }
 
   return <FontAwesomeIcon icon={[prefix, icon || name]} {...props} />;
