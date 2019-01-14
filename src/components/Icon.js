@@ -3,6 +3,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import fontawesome from '@fortawesome/fontawesome';
 
 fontawesome.library.add(
+
+  /*
   require('@fortawesome/fontawesome-pro-regular/faTimes'),
   require('@fortawesome/fontawesome-pro-regular/faCheck'),
   require('@fortawesome/fontawesome-pro-regular/faChevronDown'),
@@ -19,6 +21,21 @@ fontawesome.library.add(
   require('@fortawesome/fontawesome-pro-regular/faEye'),
   require('@fortawesome/fontawesome-pro-light/faEyeSlash'),
   require('@fortawesome/fontawesome-pro-light/faEye'),
+  */
+
+  require('@fortawesome/fontawesome-free-solid/faTimes'),
+  require('@fortawesome/fontawesome-free-solid/faCheck'),
+  require('@fortawesome/fontawesome-free-solid/faChevronDown'),
+  require('@fortawesome/fontawesome-free-solid/faSpinner'),
+  require('@fortawesome/fontawesome-free-solid/faBars'),
+  require('@fortawesome/fontawesome-free-solid/faExclamationTriangle'),
+  require('@fortawesome/fontawesome-free-solid/faDollarSign'),
+  require('@fortawesome/fontawesome-free-solid/faSearch'),
+
+  require('@fortawesome/fontawesome-free-solid/faInfoCircle'),
+
+  require('@fortawesome/fontawesome-free-regular/faEyeSlash'),
+  require('@fortawesome/fontawesome-free-regular/faEye'),
 
   require('@fortawesome/fontawesome-free-brands/faPaypal'),
   require('@fortawesome/fontawesome-free-brands/faGithub'),
@@ -35,9 +52,13 @@ export default function Icon({ icon, name, brand, light, solid, ...props }) {
   if (brand) {
     prefix = 'fab';
   } else if (light) {
-    prefix = 'fal';
+    //prefix = 'fal';
   } else if (solid) {
-    prefix = 'fas';
+    //prefix = 'fas';
+  }
+
+  if (name === 'spinner-third') {
+    name = 'spinner';
   }
 
   return <FontAwesomeIcon icon={[prefix, icon || name]} {...props} />;
