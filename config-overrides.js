@@ -25,7 +25,7 @@ module.exports = function override(config, env) {
     rule => String(rule.test) === String(/\.css$/)
   );
 
-  let stylusRules;
+  let stylusRules, sassRules;
 
   if (false) {
     config.plugins.push(
@@ -58,7 +58,25 @@ module.exports = function override(config, env) {
           }
         },
         { loader: 'postcss-loader', options: { sourceMap: true } },
-        { loader: 'stylus-loader', options: { sourceMap: true } }
+        { loader: 'stylus-loader', options: { sourceMap: true } },
+      ]
+    };
+
+    sassRules = {
+      test: /\.s[ac]ss$/,
+      use: [
+        { loader: 'style-loader', options: { sourceMap: true } },
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true,
+            modules: true,
+            importLoaders: 2,
+            localIdentName: '[folder]--[local]--[hash:base64:2]'
+          }
+        },
+        { loader: 'postcss-loader', options: { sourceMap: true } },
+        { loader: 'sass-loader', options: { sourceMap: true } },
       ]
     };
   } else {
@@ -82,7 +100,27 @@ module.exports = function override(config, env) {
             }
           },
           { loader: 'postcss-loader', options: { sourceMap: true } },
-          { loader: 'stylus-loader', options: { sourceMap: true } }
+          { loader: 'stylus-loader', options: { sourceMap: true } },
+        ]
+      })
+    };
+
+    sassRules = {
+      test: /\.s[ac]ss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              importLoaders: 2,
+              localIdentName: '[folder]--[local]--[hash:base64:2]'
+            }
+          },
+          { loader: 'postcss-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
         ]
       })
     };
@@ -91,9 +129,11 @@ module.exports = function override(config, env) {
   const oneOfRule = config.module.rules.find(rule => rule.oneOf !== undefined);
   if (oneOfRule) {
     oneOfRule.oneOf.unshift(stylusRules);
+    oneOfRule.oneOf.unshift(sassRules);
   } else {
     // Fallback to previous behaviour of adding to the end of the rules list.
     config.module.rules.push(stylusRules);
+    config.module.rules.push(sassRules);
   }
 
   // throw 'Stopping';

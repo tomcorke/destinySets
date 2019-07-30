@@ -26,7 +26,7 @@ import LoginUpsell from 'app/components/LoginUpsell';
 import XurModal from 'app/components/XurModal';
 import Dismissable from 'app/components/Dismissable';
 
-import styles from './styles.styl';
+import styles from './styles.scss';
 
 const log = require('app/lib/log')('<App />');
 
